@@ -1,0 +1,8 @@
+# Ignore all object files
+*.o
+
+# Ignore executables on Windows
+*.exe
+
+# Ignore vscode workspace settings
+.vscode
