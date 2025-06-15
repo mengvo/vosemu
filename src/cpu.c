@@ -1,4 +1,5 @@
 #include "cpu.h"
+#include "instructions.h"
 
 void cpu_init(CPU* cpu) {
     cpu->a = 0x01;
