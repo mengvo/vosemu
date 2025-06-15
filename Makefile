@@ -1,6 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -Iinclude
-TARGET = build/vosume
+TARGET = vosume
+ROM = dmg-acid2.gb
 
 SRCS = src/main.c src/memory.c
 OBJS = build/main.o build/memory.o
@@ -16,7 +17,10 @@ build/%.o: src/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 run: all
-	@./$(TARGET)
+	@./$(TARGET) 
+
+rom: all
+	@./$(TARGET) $(ROM)
 
 clean:
 	rm -f build/*
