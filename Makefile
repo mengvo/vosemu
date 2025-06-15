@@ -1,10 +1,10 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -Iinclude
 TARGET = vosume
-ROM = dmg-acid2.gb
+ROM = dmg-acid2.gbs
 
-SRCS = src/main.c src/memory.c
-OBJS = build/main.o build/memory.o
+SRCS = src/main.c src/memory.c src/cpu.c
+OBJS = build/main.o build/memory.o build/cpu.o
 
 all: $(TARGET)
 
