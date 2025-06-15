@@ -1,7 +1,7 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Iinclude
+CFLAGS = -Wall -Wextra -Iinclude -g
 TARGET = vosume
-ROM = dmg-acid2.gbs
+ROM = dmg-acid2.gb
 
 SRCS = src/main.c src/memory.c src/cpu.c
 OBJS = build/main.o build/memory.o build/cpu.o

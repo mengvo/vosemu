@@ -26,6 +26,9 @@ u8 read_byte(Mem* mem, u16 address) {
 }
 
 void write_byte(Mem* mem, u16 address, u8 value) {
+    (void)mem;      //! Suppresses warnings
+    (void)address;  //! Suppresses warnings
+    (void)value;    //! Suppresses warnings
     // TODO: write this function
 }
 

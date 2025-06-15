@@ -14,6 +14,6 @@ void cpu_init(CPU* cpu) {
 }
 
 bool cpu_step(CPU* cpu, Mem* mem) {
-    // TODO: write this functions
+    u8 instruction = read_byte(mem, cpu->PC++);
     return false;
 }

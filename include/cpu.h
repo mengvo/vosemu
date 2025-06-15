@@ -22,8 +22,8 @@ typedef struct {
 
     union {
         struct {
-            u8 d;
             u8 e;
+            u8 d;
         };
         u16 de;
     };
