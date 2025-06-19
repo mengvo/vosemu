@@ -1,4 +1,5 @@
 #include "instructions.h"
+#include "cpu.h"
 
 Instruction instructions[0x100] = {
     [0x00] = {INS_NOP, AM_IMP, NONE, NONE, CT_NONE, 0},
@@ -262,3 +263,38 @@ Instruction instructions[0x100] = {
     [0xFE] = {INS_CP, AM_R_D8, A, NONE, CT_NONE, 0},
     [0xFF] = {INS_RST, AM_IMP, NONE, NONE, CT_NONE, 0x38}
 };
+
+u16 get_register(CPU* cpu, reg_type reg) {
+    switch(reg) {
+        case NONE:
+            return 0;
+        case A:
+            return cpu->a;
+        case F:
+            return cpu->f;
+        case B:
+            return cpu->a;
+        case C:
+            return cpu->a;
+        case D:
+            return cpu->a;
+        case E:
+            return cpu->a;
+        case H:
+            return cpu->a;
+        case L:
+            return cpu->a;
+        case AF:
+            return cpu->af;
+        case BC:
+            return cpu->bc;
+        case DE:
+            return cpu->de;
+        case HL:
+            return cpu->hl;
+        case SP:
+            return cpu->SP;
+        default:
+            return;
+    }
+}

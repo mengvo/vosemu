@@ -14,23 +14,38 @@ void cpu_init(CPU* cpu) {
     cpu->PC = 0x0100;
 }
 
+void execute_ins(CPU* cpu, Mem* mem, Instruction ins) {
+    u16 reg1 = 0, reg2 = 0;
+    u8 byte1 = 0, byte2 = 0;
+    u16 word = 0;
+    switch(ins.mode) {
+        case AM_IMP:
+            break;
+        case AM_R:
+            reg1 = get_register(cpu, ins.reg_1);
+            break;
+        case AM_R_R:
+            reg1 = get_register(cpu, ins.reg_1);
+            reg2 = get_register(cpu, ins.reg_2);
+            break;
+        case AM_R_D8:
+            reg1 = get_register(cpu, ins.reg_1);
+            byte1 = read_byte(mem, cpu->PC++);
+            break;
+        case AM_R_D16:
+            reg1 = get_register(cpu, ins.reg_1);
+            byte1 = read_byte(mem, cpu->PC++);
+            byte2 = read_byte(mem, cpu->PC++); 
+            break;
+        case AM_R_MR:
+            // TODO: CONTINUE HERE
+            break;
+    }
+}
+
 bool cpu_step(CPU* cpu, Mem* mem) {
     u8 opcode = read_byte(mem, cpu->PC++);
     Instruction ins = instructions[opcode];
     return false;
 }
 
-/* 
-
-TODO : Finish create an execute instruction function
-
-* may need to create a new struct containing addressing mode info, like what registers/immediates are we using, and other info of instruction
-* use a switch to find out what the curr ins addressing mode is and store the needed info in that struct
-* then write functions for each ins_type and use the struct to execute, set flags, etc.
-
-void execute_ins(CPU*, Mem*, Instruction)
-1.) figure out what instruction type e.g. load, alu, conditional, etc?
-2.) fetch amt of bytes needed
-3.) call its respective function?
-
-*/
