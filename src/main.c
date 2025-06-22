@@ -5,7 +5,19 @@ void print_cart_header(char* filename);
 
 int main(int argc, char* argv[]) {
     (void)argc; //! Suppresses warnings
-    print_cart_header(argv[1]);
+
+    u8 cart[0x8000];
+    FILE* rom = fopen(argv[1], "rb");
+    fread(cart, 1, sizeof(cart), rom);
+    fclose(rom);
+
+    u16 PC = 0x0430; //starting point for cpu_instrs.gb
+    for(u16 i = 0; i < 100; i++) {
+        printf("Instruction %d: %02x\tPC: %04x\n", i, cart[PC], PC);
+        PC++;
+    }
+
+    //print_cart_header(argv[1]);
     // CPU cpu;
     // cpu_init(&cpu);
     // printf("AF: %04x\n", cpu.af);

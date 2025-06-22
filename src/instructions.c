@@ -44,9 +44,9 @@ Instruction instructions[0x100] = {
     [0x25] = {INS_DEC, AM_R, H, NONE, CT_NONE, 0},
     [0x26] = {INS_LD, AM_R_D8, H, NONE, CT_NONE, 0},
     [0x27] = {INS_DAA, AM_IMP, NONE, NONE, CT_NONE, 0},
-    [0x28] = {INS_JR, AM_D8, NONE, NONE, CT_Z},
-    [0x29] = {INS_ADD, AM_R_R, HL, HL},
-    [0x2A] = {INS_LD, AM_R_HLI, A, HL},
+    [0x28] = {INS_JR, AM_D8, NONE, NONE, CT_Z, 0},
+    [0x29] = {INS_ADD, AM_R_R, HL, HL, CT_NONE, 0},
+    [0x2A] = {INS_LD, AM_R_HLI, A, HL, CT_NONE, 0},
     [0x2B] = {INS_DEC, AM_R, HL, NONE, CT_NONE, 0},
     [0x2C] = {INS_INC, AM_R, L, NONE, CT_NONE, 0},
     [0x2D] = {INS_DEC, AM_R, L, NONE, CT_NONE, 0},
@@ -294,7 +294,10 @@ u16 get_register(CPU* cpu, reg_type reg) {
             return cpu->hl;
         case SP:
             return cpu->SP;
+        //suppressing warnings...
+        case PC:
+            return 0;
         default:
-            return;
+            return 0;
     }
 }

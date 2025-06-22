@@ -1,7 +1,9 @@
 #pragma once
 
 #include "common.h"
-#include "cpu.h"
+
+struct CPU;
+typedef struct CPU CPU;
 
 // Instruction decoding ideas and enums inspired by:
 // "Low Level Devel" (Youtube)
@@ -124,4 +126,4 @@ typedef struct {
 
 extern Instruction instructions[256];
 
-u16 get_register(CPU*, reg_type);
+u16 get_register(CPU* cpu, reg_type reg);

@@ -2,8 +2,9 @@
 
 #include "common.h"
 #include "memory.h"
+#include "instructions.h"
 
-typedef struct {
+typedef struct CPU {
     union {
         struct {
             u8 f;
@@ -41,5 +42,17 @@ typedef struct {
 
 } CPU;
 
+typedef struct Operands {
+    u16 ptr;
+    u8 byte1;
+    u8 byte2;
+    u16 word;
+    u16 reg1;
+    u16 reg2;
+    r8 offset;
+} Operands;
+
 void cpu_init(CPU* cpu);
+void decode_operands(CPU* cpu, Mem* mem, Instruction ins, Operands* operands);
+void execute_ins(CPU* cpu, Mem* mem, Instruction ins);
 bool cpu_step(CPU* cpu, Mem* mem);
