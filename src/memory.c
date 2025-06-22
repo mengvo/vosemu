@@ -49,6 +49,7 @@ bool cart_load(Mem* mem, char* filename) {
         return false;
     }
 
+    // loads rom into memory
     fread(mem->cart, 1, sizeof(mem->cart), rom);
 
     fclose(rom);

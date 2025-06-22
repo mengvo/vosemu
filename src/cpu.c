@@ -37,6 +37,7 @@ void decode_operands(CPU* cpu, Mem* mem, Instruction ins, Operands* operands) {
             operands->byte2 = read_byte(mem, cpu->PC++);
             operands->word = (operands->byte2 << 8) | operands->byte1; 
             return;
+        // essentially reg1 = *ptr, where ptr = reg2
         case AM_R_MR:
             operands->reg1 = get_register(cpu, ins.reg_1);
             operands->ptr = get_register(cpu, ins.reg_2);
@@ -69,14 +70,16 @@ void decode_operands(CPU* cpu, Mem* mem, Instruction ins, Operands* operands) {
             operands->reg1 = get_register(cpu, ins.reg_1);
             operands->byte1 = read_byte(mem, cpu->PC++);
             return;
+        // review 0xE0 in cpu instructions if needed.
         case AM_A8_R:
             operands->ptr = 0xFF00 | read_byte(mem, cpu->PC++);
             operands->reg2 = get_register(cpu, ins.reg_2);
             return;
+        // review 0xF8 in cpu instructions if needed.
         case AM_HL_SPR:
             operands->reg1 = get_register(cpu, ins.reg_1);
             operands->reg2 = get_register(cpu, ins.reg_2);
-            operands->offset = (r8)read_byte(mem, cpu->PC++);
+            operands->offset = (r8)read_byte(mem, cpu->PC++); // r8 means signed
             return;
         case AM_D8:
             operands->byte1 = read_byte(mem, cpu->PC++);
@@ -90,7 +93,7 @@ void decode_operands(CPU* cpu, Mem* mem, Instruction ins, Operands* operands) {
             return;
         case AM_MR_D8:
             operands->ptr = get_register(cpu, ins.reg_1);
-            operands->byte2 = read_byte(mem, cpu->PC++);
+            operands->byte1 = read_byte(mem, cpu->PC++);
             return;
         case AM_MR:
             operands->ptr = get_register(cpu, ins.reg_1);
@@ -107,10 +110,16 @@ void decode_operands(CPU* cpu, Mem* mem, Instruction ins, Operands* operands) {
     }
 }
 
+/* Logic: I'll retrieve the needed operands for 'ins' using decode_operands. It only retrieves data, doesn't necessarily
+          do anything with it. It sets up everything so all I'll have to do is use what I retrieved and execute according
+          to the instruction e.g. AM_MR_D8 gets the ptr to the register and the d8 byte only, doesn't perform the *(ptr) = d8.
+          My plan is to create another function that will look at ins_type and proceed to narrow down the ins to simplify 
+          execution, so I dont have to write 256 instruction functions (hopefully). */
 void execute_ins(CPU* cpu, Mem* mem, Instruction ins) {
     Operands operands = {0};
-    // modularize this switch into a function when done
     decode_operands(cpu, mem, ins, &operands);
+
+    // * Review decode_operands and logic explaination before implementing next function
     // use vars to execute instructions: maybe sort by ins_type w switch too?
     // ^ possibly another function?
 }

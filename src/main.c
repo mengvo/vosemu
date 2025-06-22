@@ -1,6 +1,14 @@
 #include "memory.h"
 #include "cpu.h"
 
+// ! CURRENT OVERVIEW - in case I take a long break and am confused when coming back.
+/* This is how the program currently works: I have a memory class that handles reading and writing
+   bytes (review memory.h/.c if needed). I also have an instructions class that contains a mapping
+   of all 256 instructions and get_register. I then have the cpu class that contains registers and
+   an operands struct (used in decode_operands). I explain more of my logic in cpu.c, currently my
+   goal for now is to finish execute_ins.
+*/
+
 void print_cart_header(char* filename);
 
 int main(int argc, char* argv[]) {
